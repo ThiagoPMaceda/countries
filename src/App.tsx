@@ -5,9 +5,10 @@ import './components/Header'
 import Header from './components/Header';
 function App() {
   return (
-
-    <Header>
-    </Header>
+    <div className="theme-light">
+      <Header>
+      </Header>
+    </div>
   );
 }
 
