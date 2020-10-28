@@ -20,9 +20,9 @@ module.exports = {
                 // background: 'hsl(207, 26%, 17%)',
                 // text: 'hsl(0, 0%, 100%)'
                 elements: 'var(--bg-elements)',
-                elements: 'var(--text-primary)',
-                elements: 'var(--bg-input)',
-                elements: 'var(--bg-backgroud)',
+                textPrimary: 'var(--text-primary)',
+                input: 'var(--bg-input)',
+                background: 'var(--bg-background-primary)',
             }
         }
     },
