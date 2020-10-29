@@ -6,9 +6,12 @@ const Filters: React.FC = () => {
 		<div className='flex justify-center pt-8'>
 			<form>
 				<div className='relative'>
-					<span className='absolute inset-y-0 left-0 flex items-center pl-2'>
+					<span className='absolute inset-y-0 flex items-center pl-8'>
 						<button>
-							<AiOutlineSearch />
+							<AiOutlineSearch
+								size={20}
+								className='text-textPrimary'
+							/>
 						</button>
 					</span>
 					<input

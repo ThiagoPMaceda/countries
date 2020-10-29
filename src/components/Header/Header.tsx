@@ -12,7 +12,7 @@ const Header: React.FC<themeChangeProps> = ({ handleThemeChange }) => {
 				<h2 className='text-textPrimary'>Where in the world?</h2>
 				<div className='flex flex-row items-center font-light'>
 					<button onClick={handleThemeChange}>
-						<BiMoon size={20} fill='text-textPrimary' />
+						<BiMoon size={20} className='text-textPrimary' />
 					</button>
 					<p className='pl-2 text-textPrimary'>Dark Mode</p>
 				</div>
