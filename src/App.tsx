@@ -3,7 +3,7 @@ import './tailwind.output.css';
 import './components/Header';
 import Header from './components/Header';
 import { useState } from 'react';
-import Filters from './components/Filters';
+import SearchCountry from './components/SearchCountry';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 
 const App: React.FC = () => {
@@ -23,7 +23,7 @@ const App: React.FC = () => {
 				} bg-elements h-screen`}
 			>
 				<Header handleThemeChange={handleThemeChange} />
-				<Filters></Filters>
+				<SearchCountry></SearchCountry>
 			</div>
 		</ReactQueryCacheProvider>
 	);
