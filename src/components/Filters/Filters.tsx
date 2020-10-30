@@ -1,7 +1,13 @@
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
+import { useCountries } from '../../hooks/useCountries';
+
 const Filters: React.FC = () => {
+	const { data, status } = useCountries();
+
+	console.log(data, status);
+
 	return (
 		<div className='flex justify-center pt-8'>
 			<form>
