@@ -5,6 +5,7 @@ import Header from './components/Header';
 import { useState } from 'react';
 import SearchCountry from './components/SearchCountry';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { FilterByRegion } from './components/FilterByRegion';
 
 const App: React.FC = () => {
 	const [theme, setTheme] = useState(true);
@@ -24,6 +25,7 @@ const App: React.FC = () => {
 			>
 				<Header handleThemeChange={handleThemeChange} />
 				<SearchCountry></SearchCountry>
+				<FilterByRegion></FilterByRegion>
 			</div>
 		</ReactQueryCacheProvider>
 	);
