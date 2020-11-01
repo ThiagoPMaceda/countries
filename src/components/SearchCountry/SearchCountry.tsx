@@ -21,12 +21,12 @@ interface ICountry {
 const SearchCountry: React.FC<IDropDownProps> = () => {
 	const { data: countries, status } = useCountries();
 
-	const allCountries = countries?.data.map((country: ICountry) => ({
+	const allCountries: any = countries?.data.map((country: ICountry) => ({
 		name: country.name,
 		alpha2Code: country.alpha2Code,
 	}));
 
-	const getCountries = (value: string): ICountry[] => {
+	const getCountries = (value: string) => {
 		if (value) {
 			return matchSorter(allCountries, value, { keys: ['name'] });
 		} else {
@@ -45,11 +45,10 @@ const SearchCountry: React.FC<IDropDownProps> = () => {
 				getInputProps,
 				getMenuProps,
 				getItemProps,
-				getRootProps,
 				inputValue,
 				isOpen,
 			}) => (
-				<div className='flex justify-center pt-8' {...getRootProps()}>
+				<div className='flex justify-center pt-8'>
 					<form>
 						<div className='relative'>
 							<span className='absolute inset-y-0 flex items-center pl-8'>
@@ -60,43 +59,43 @@ const SearchCountry: React.FC<IDropDownProps> = () => {
 									/>
 								</button>
 							</span>
-							<input
-								{...getInputProps()}
-								className='shadow appearance-none px-16 py-2 rounded text-textPrimary placeholder-textPrimary focus:outline-none focus:shadow-outline bg-elements'
-								id='search-country'
-								type='text'
-								placeholder='Search for a country...'
-							/>
-							<ul {...getMenuProps()}>
-								{isOpen && countries && inputValue?.length
-									? // ? countries.data
-									  // 		.filter(
-									  // 			(country: ICountry) =>
-									  // 				!inputValue ||
-									  // 				country.name.includes(
-									  // 					inputValue
-									  // 				)
-									  // 		)
-									  getCountries(inputValue).map(
-											(
-												country: ICountry,
-												index: number
-											) => (
-												<li
-													key={index}
-													{...getItemProps({
-														item: country,
-														key: country.alpha2Code,
-														index,
-													})}
-												>
-													{country.name}
-												</li>
-											)
-									  )
-									: null}
-							</ul>
+							<div>
+								<input
+									{...getInputProps()}
+									className='shadow appearance-none px-16 py-2 rounded text-textPrimary placeholder-textPrimary focus:outline-none focus:shadow-outline bg-elements'
+									id='search-country'
+									type='text'
+									placeholder='Search for a country...'
+								/>
+							</div>
 						</div>
+						<ul
+							className='flex items-center flex-col'
+							{...getMenuProps({
+								style: {
+									height: 300,
+									overflowY: 'scroll',
+									maxWidth: 321,
+								},
+							})}
+						>
+							{isOpen && countries && inputValue?.length
+								? getCountries(inputValue).map(
+										(country: ICountry, index: number) => (
+											<li
+												key={index}
+												{...getItemProps({
+													item: country,
+													key: country.alpha2Code,
+													index,
+												})}
+											>
+												{country.name}
+											</li>
+										)
+								  )
+								: null}
+						</ul>
 					</form>
 				</div>
 			)}
