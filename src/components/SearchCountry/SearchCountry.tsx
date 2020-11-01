@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import Downshift, { useCombobox, UseComboboxInterface } from 'downshift';
+import Downshift from 'downshift';
+import { matchSorter } from 'match-sorter';
 import { useCountries } from '../../hooks/useCountries';
 
 type OptionType = {
@@ -17,20 +18,38 @@ interface ICountry {
 	alpha2Code: string;
 }
 
-const SearchCountry: React.FC<IDropDownProps> = (): any => {
+const SearchCountry: React.FC<IDropDownProps> = () => {
 	const { data: countries, status } = useCountries();
 
+	const allCountries = countries?.data.map((country: ICountry) => ({
+		name: country.name,
+		alpha2Code: country.alpha2Code,
+	}));
+
+	const getCountries = (value: string): ICountry[] => {
+		if (value) {
+			return matchSorter(allCountries, value, { keys: ['name'] });
+		} else {
+			return allCountries;
+		}
+	};
+
+	const itemToString = (item: { name: string } | null) => {
+		return item ? item.name : '';
+	};
+
 	return (
-		<Downshift>
+		<Downshift itemToString={itemToString}>
 			{({
 				getToggleButtonProps,
 				getInputProps,
 				getMenuProps,
 				getItemProps,
+				getRootProps,
 				inputValue,
 				isOpen,
 			}) => (
-				<div className='flex justify-center pt-8'>
+				<div className='flex justify-center pt-8' {...getRootProps()}>
 					<form>
 						<div className='relative'>
 							<span className='absolute inset-y-0 flex items-center pl-8'>
@@ -50,32 +69,31 @@ const SearchCountry: React.FC<IDropDownProps> = (): any => {
 							/>
 							<ul {...getMenuProps()}>
 								{isOpen && countries && inputValue?.length
-									? countries.data
-											.filter(
-												(country: ICountry) =>
-													!inputValue ||
-													country.name.includes(
-														inputValue
-													)
+									? // ? countries.data
+									  // 		.filter(
+									  // 			(country: ICountry) =>
+									  // 				!inputValue ||
+									  // 				country.name.includes(
+									  // 					inputValue
+									  // 				)
+									  // 		)
+									  getCountries(inputValue).map(
+											(
+												country: ICountry,
+												index: number
+											) => (
+												<li
+													key={index}
+													{...getItemProps({
+														item: country,
+														key: country.alpha2Code,
+														index,
+													})}
+												>
+													{country.name}
+												</li>
 											)
-											.map(
-												(
-													country: ICountry,
-													index: number
-												) => (
-													<li
-														key={index}
-														{...getItemProps({
-															item: country,
-															key:
-																country.alpha2Code,
-															index,
-														})}
-													>
-														{country.name}
-													</li>
-												)
-											)
+									  )
 									: null}
 							</ul>
 						</div>
