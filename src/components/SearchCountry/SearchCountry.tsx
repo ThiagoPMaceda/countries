@@ -45,6 +45,7 @@ const SearchCountry: React.FC<IDropDownProps> = () => {
 				getInputProps,
 				getMenuProps,
 				getItemProps,
+				highlightedIndex,
 				inputValue,
 				isOpen,
 			}) => (
@@ -88,6 +89,15 @@ const SearchCountry: React.FC<IDropDownProps> = () => {
 													item: country,
 													key: country.alpha2Code,
 													index,
+													style: {
+														backgroundColor:
+															highlightedIndex ===
+															index
+																? 'var(--bg-input)'
+																: 'var(--bg-elements)',
+														color:
+															'var(--text-primary)',
+													},
 												})}
 											>
 												{country.name}
